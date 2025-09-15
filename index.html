@@ -142,6 +142,9 @@ const icons = {
   "Activiteiten": L.divIcon({ className: 'number-icon', html: '🎯' })
 };
 const defaultIcon = L.divIcon({ className: 'number-icon', html: '❓' });
+const solvedIcon = L.divIcon({ className: 'number-icon', html: '🚩' });
+// markers array opslaan
+let markers = [];
 
 // === Hotspots met raadsels ===
 const hotspots = [
@@ -192,13 +195,66 @@ const ScoreControl = L.Control.extend({
   }
 });
 
+// Letterbord coords (schatkist)
+const chestCoords = [6008, 2535];
+let collectedLetters = new Array(hotspots.length).fill('');
+
+
+// LetterControl
+const LetterControl = L.Control.extend({
+  onAdd: function(map) {
+    // Container maken
+    this.container = L.DomUtil.create('div', 'letterboard');
+    this.container.style.position = 'topleft';
+    this.container.style.pointerEvents = 'none'; // klikken gaat door
+    this.container.style.zIndex = 1;
+
+    // Letters initialiseren
+    this.updateLetters();
+
+    // Positie berekenen
+    this.updatePosition(map);
+
+    return this.container;
+  },
+
+  // Update letters die verzameld zijn
+  updateLetters: function() {
+    if (this.container) {
+      this.container.innerHTML = collectedLetters.map(l => l || "_").join(" ");
+    }
+  },
+
+  // Positionering boven de schatkist
+  updatePosition: function(map) {
+    if (!this.container || !map) return;
+	console.log(chestCoords);
+	
+    const latlng = map.unproject(chestCoords, map.getMaxZoom());
+	// Marker voor de schatkist (kan onzichtbaar)
+	const chestMarker = L.marker(latlng, { 
+		icon: L.divIcon({ html: '💰' }) 
+	}).addTo(map);
+    const pos = map.latLngToContainerPoint(latlng);
+    console.log(pos.x);
+    this.container.style.left = `${pos.x + 500}px`;       // horizontaal gecentreerd
+    this.container.style.top = `${pos.y - 50}px`;   // iets boven de marker
+    this.container.style.transform = 'translateX(-50%)'; // echt centreren
+  }
+});
+
+
+
+
+
+
+
 function updateScore() {
   if(scoreControl && scoreControl.container){
     scoreControl.container.innerHTML = `Raadsels opgelost: ${score} / ${total}`;
   }
 }
 
-// === Check antwoord functie ===
 function checkAnswer(index) {
   const input = document.getElementById(`answer${index}`).value.trim().toLowerCase();
   const correct = hotspots[index].answer.toLowerCase();
@@ -211,8 +267,15 @@ function checkAnswer(index) {
       updateScore();
       feedbackEl.textContent = "✅ Goed gedaan!";
       feedbackEl.className = "feedback correct";
+
+      // Letter toevoegen
+      collectedLetters[index] = hotspots[index].letter;
+      letterControl.updateLetters();
+
       const markerEl = document.getElementById(`marker${index}`);
       if(markerEl) markerEl.style.borderColor = "#4caf50";
+	  markers[index].setIcon(solvedIcon);
+      checkEndGame();
     } else {
       feedbackEl.textContent = "✅ Al opgelost!";
       feedbackEl.className = "feedback correct";
@@ -222,6 +285,22 @@ function checkAnswer(index) {
     feedbackEl.className = "feedback wrong";
   }
 }
+
+// Eindgame overlay
+function checkEndGame() {
+  if (collectedLetters.every(l => l !== '')) {
+    const finalWord = collectedLetters.join('');
+    const overlay = document.getElementById('chest-overlay');
+    document.getElementById('final-code').textContent = finalWord;
+    overlay.style.display = 'block';
+    overlay.classList.add('show');
+    setTimeout(() => overlay.classList.remove('show'), 1000);
+  }
+}
+
+document.getElementById('close-chest-btn').addEventListener('click', () => {
+  document.getElementById('chest-overlay').style.display = 'none';
+});
 
 // === Kaart initialiseren ===
 function initMap(){
@@ -235,6 +314,18 @@ function initMap(){
   // Voeg scorebord toe
   scoreControl = new ScoreControl();
   map.addControl(scoreControl);
+  // Letterbord
+  letterControl = new LetterControl();
+  map.addControl(letterControl);
+  
+    // Letterbord
+  letterControl = new LetterControl();
+  map.addControl(letterControl);
+
+  // Meebewegen bij zoom/pan
+  map.on('zoom move', () => {
+    letterControl.updatePosition(map);
+  });
 
   // Voeg markers toe
   hotspots.forEach((spot, i) => {
