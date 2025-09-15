@@ -243,12 +243,6 @@ const LetterControl = L.Control.extend({
   }
 });
 
-
-
-
-
-
-
 function updateScore() {
   if(scoreControl && scoreControl.container){
     scoreControl.container.innerHTML = `Raadsels opgelost: ${score} / ${total}`;
@@ -297,11 +291,6 @@ function checkEndGame() {
     setTimeout(() => overlay.classList.remove('show'), 1000);
   }
 }
-
-document.getElementById('close-chest-btn').addEventListener('click', () => {
-  document.getElementById('chest-overlay').style.display = 'none';
-});
-
 // === Kaart initialiseren ===
 function initMap(){
   map = L.map('map', { crs: L.CRS.Simple, minZoom: 0, maxZoom: 5, zoomSnap: 0.1, wheelPxPerZoomLevel: 200, zoomAnimation: true, });
@@ -359,6 +348,10 @@ closeBtn.addEventListener('click', () => {
   mapDiv.style.display = 'none';
   introOverlay.style.display = 'flex';
   closeBtn.style.display = 'none';
+});
+
+document.getElementById('close-chest-btn').addEventListener('click', () => {
+  document.getElementById('chest-overlay').style.display = 'none';
 });
 </script>
 
