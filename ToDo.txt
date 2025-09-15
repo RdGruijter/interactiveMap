@@ -1,0 +1,37 @@
+To-Do List / Future Improvements
+
+Add Images to Popups
+
+Currently, popups only show title and link.
+
+Add img_url array for each hotspot to display relevant images.
+
+Marker Customization
+
+Different marker icons for food, activities, or other categories.
+
+Consider Leaflet.SmoothMarkerBouncing for better interactivity.
+
+Responsive Popups
+
+Adjust popup width and height to display nicely on mobile devices.
+
+Filter by Subcategory
+
+Add filters (e.g., Restaurants, Kids, Sports) for a more dynamic experience.
+
+Debug Tools
+
+Optional pixel coordinates display for hotspot alignment verification.
+
+Performance Optimizations
+
+Lazy-load tiles or markers if the map becomes heavy.
+
+Consider clustering if zooming out to view all 37 markers at once.
+
+Accessibility
+
+Add proper aria-labels for markers.
+
+Keyboard navigation and screen reader support.

@@ -1,0 +1,94 @@
+37 discountcode
+BERGENSCHOORLEGMONDSCHATKAART2025XYZ
+
+
+To-Do Lijst: Eindgame “Schatkist openen met letters”
+Stap 1: Voeg een letter toe aan elke hotspot
+
+Bij elk hotspot-object in je dataset voeg je een nieuwe property letter toe.
+
+Dit is de letter die je speler krijgt bij het correct oplossen van dat raadsel.
+
+Bijvoorbeeld:
+
+{ coords: [2852, 5379], title: "De visboet van Egmond aan Zee", category: "Eten & Drinken", riddle: "...", answer: "visboet", letter: "V" }
+
+
+Herhaal dit voor alle 37 hotspots. Zo wordt de eindzin opgebouwd.
+
+Stap 2: Maak een array om verzamelde letters bij te houden
+
+Voeg bovenin je script een lege array toe, even lang als het aantal hotspots:
+
+let collectedLetters = new Array(hotspots.length).fill('');
+
+
+Zo kun je bijhouden welke letters al verzameld zijn.
+
+Stap 3: Pas de checkAnswer functie aan
+
+Nadat een raadsel correct is opgelost:
+
+Zet de letter in collectedLetters[index].
+
+Update de score en feedback zoals je al deed.
+
+Voeg een extra stap toe om te checken of de eindgame gestart moet worden.
+
+collectedLetters[index] = hotspots[index].letter;
+checkEndGame(); // zie stap 4
+
+Stap 4: Maak een functie om de eindgame te checken
+
+Deze functie kijkt of alle letters verzameld zijn en toont de eindzin of code.
+
+function checkEndGame() {
+  if (collectedLetters.every(l => l !== '')) {
+    const finalWord = collectedLetters.join('');
+    // Voor nu: alert, later een mooie overlay
+    alert(`🎉 Gefeliciteerd! Je hebt alle raadsels opgelost!\nDe schatkist is geopend met de code: ${finalWord}`);
+  }
+}
+
+
+Later kun je alert vervangen door een visuele overlay.
+
+Stap 5: Maak een visuele eindgame overlay
+
+Voeg HTML toe boven je map div:
+
+<div id="endgame-overlay" style="display:none; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); color:white; display:flex; justify-content:center; align-items:center; text-align:center; flex-direction:column; z-index:1000;">
+  <h1>🎉 Schatkist geopend! 🎉</h1>
+  <p id="final-code"></p>
+  <button onclick="document.getElementById('endgame-overlay').style.display='none'">Sluiten</button>
+</div>
+
+
+Pas de checkEndGame functie aan om de overlay te tonen:
+
+function checkEndGame() {
+  if (collectedLetters.every(l => l !== '')) {
+    const finalWord = collectedLetters.join('');
+    const overlay = document.getElementById('endgame-overlay');
+    overlay.style.display = 'flex';
+    document.getElementById('final-code').textContent = `Code: ${finalWord}`;
+  }
+}
+
+Stap 6: Test je flow
+
+Open de map.
+
+Los een paar raadsels op.
+
+Controleer dat letters worden verzameld en dat de score omhoog gaat.
+
+Controleer dat de overlay verschijnt als alle 37 letters zijn verzameld.
+
+Stap 7 (optioneel): Extra visueel effect
+
+Je kunt letters ook direct zichtbaar maken op een “letterbord” op de kaart.
+
+Of de marker groen laten knipperen als een raadsel is opgelost.
+
+Zo wordt de eindgame interactiever.

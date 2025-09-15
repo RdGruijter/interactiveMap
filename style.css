@@ -1,0 +1,107 @@
+html, body { height: 100%; margin: 0; }
+#map { width: 100%; height: 100%; }
+/* Intro overlay */
+#intro-overlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+#intro-overlay h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#intro-overlay img {
+  max-width: 300px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+#intro-overlay button {
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #e63946;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#intro-overlay button:hover {
+  background-color: #d62828;
+}
+
+/* Hide map initially */
+#map {
+  width: 100%;
+  height: 100%;
+  display: none; /* wordt zichtbaar na klik */
+}
+/* Sluitknop rechtsboven */
+#close-map-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  font-size: 24px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: none; /* standaard verbergen */
+  align-items: center;
+  justify-content: center;
+}
+#close-map-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+.number-icon {
+  background: #fff;
+  color: #000;
+  font-size: 24px;
+  text-align: center;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #e63946;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.scoreboard {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  background: rgba(255,255,255,0.9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.feedback {
+  margin-top: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.correct { background-color: #4caf50; color: white; }
+.wrong { background-color: #f44336; color: white; }
+.number-icon {
+  animation: pulse 1.5s infinite;
+}
