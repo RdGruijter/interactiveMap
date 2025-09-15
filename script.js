@@ -3,7 +3,7 @@ let score = 0;
 const total = 37;
 let solved = new Array(total).fill(false);
 let scoreControl;
-
+console.log("DEBUG: script.js wordt uitgevoerd");
 // Emoji icons
 const icons = {
   "Eten & Drinken": L.divIcon({ className: 'number-icon', html: '🍴' }),

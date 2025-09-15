@@ -1,11 +1,18 @@
 import streamlit as st
 import pathlib
 
-# Pad naar je lokale HTML-bestand
-html_path = pathlib.Path("index.html")
+# Pad naar self-contained HTML
+html_path = pathlib.Path("index.html")  # of je gecombineerde HTML-bestand
 
-# Laad HTML-inhoud
+# Lees de HTML-inhoud
 html_content = html_path.read_text(encoding="utf-8")
 
-# Render in Streamlit
-st.components.v1.html(html_content, height=800, scrolling=True)
+# Streamlit-app
+st.title("Mijn interactieve map")
+
+# Render de HTML inclusief inline CSS en JS
+st.components.v1.html(
+    html_content,
+    height=800,  # pas aan als nodig
+    scrolling=True
+)
