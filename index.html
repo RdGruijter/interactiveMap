@@ -366,7 +366,7 @@ function checkAnswer(index) {
 
       const markerEl = document.getElementById(`marker${index}`);
       if(markerEl) markerEl.style.borderColor = "#4caf50";
-      markers[index].setIcon(solvedIcon);
+	  markers[index].setIcon(solvedIcon);
       checkEndGame();
     } else {
       feedbackEl.textContent = "✅ Al opgelost!";
@@ -430,8 +430,8 @@ function initMap(){
       <div id="feedback${i}" class="feedback"></div>`;
     marker.bindPopup(popupContent);
     marker.on('add', () => { if(marker._icon) marker._icon.id = `marker${i}`; });
-    // Push the marker to the end of the array
-    markers.push(marker);
+	// Push the marker to the end of the array
+	markers.push(marker);
   });
 }
 
