@@ -207,10 +207,20 @@ html, body { height: 100%; margin: 0; }
   <!-- Intro overlay -->
   <div id="intro-overlay">
     <h1>Ontdek de schatten van Bergen, Schoorl en Egmond</h1>
-    <img src="./thumb.jpg" alt="Schatkaart thumbnail" id="thumbnail">
+    <img src="thumb.jpg" alt="Schatkaart thumbnail" id="thumbnail">
     <button id="open-map-btn">Open de plattegrond</button>
   </div>
+<div id="letter-placeholder"></div>
 <div id="map"></div>
+<div id="chest-overlay">
+  <h2>🎉 Gefeliciteerd! 🎉</h2>
+  <p>Je hebt alle raadsels opgelost!</p>
+  <p>De schatkist is geopend met de code:</p>
+  <div id="final-code"></div>
+  <button id="close-chest-btn">Sluiten</button>
+</div>
+
+
 <!-- Sluitknop voor terug naar intro -->
 <button id="close-map-btn">✖</button>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
