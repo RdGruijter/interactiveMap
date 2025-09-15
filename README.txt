@@ -99,6 +99,36 @@ Intro-overlay en close-knop functionaliteit
 
 Door deze scheiding wordt het onderhoud van het project veel makkelijker.
 
+To use map.project() in your click helper function, you need to first get the L.LatLng object from the click event. Then, you pass that latlng and the appropriate zoom level to map.project(). This will convert the coordinate of your click from a LatLng object to pixel coordinates.
+
+This is useful if you have a map that uses a standard geographic CRS (like OpenStreetMap) but need to find the pixel coordinates of a clicked location.
+
+Here's how you can implement it:
+
+The Click Helper Function
+Add this function to your JavaScript. It will log the geographic and pixel coordinates of any click on your map to the console.
+
+JavaScript
+
+map.on('click', function(e) {
+    // 1. Get the L.LatLng object from the click event
+    const latlng = e.latlng;
+
+    // 2. Project the latlng to pixel coordinates
+    // We use the current map zoom level for the conversion
+    const pixelPoint = map.project(latlng, map.getZoom());
+
+    console.log(`
+        Clicked Geographic Coordinates:
+        Lat: ${latlng.lat.toFixed(6)}
+        Lng: ${latlng.lng.toFixed(6)}
+
+        Projected Pixel Coordinates:
+        X: ${pixelPoint.x.toFixed(0)}
+        Y: ${pixelPoint.y.toFixed(0)}
+    `);
+});
+
 📦 Dependencies
 
 Leaflet.js 1.7.1
@@ -121,5 +151,6 @@ Meerdere talen of extra hints.
 Intro-overlay verbeteren met video of geluid.
 
 👩‍💻 Gemaakt met ❤️
+
 
 Voor kinderen (en volwassenen) die Bergen, Schoorl en Egmond willen ontdekken via een interactieve schatkaart.
