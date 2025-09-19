@@ -105,3 +105,91 @@ html, body { height: 100%; margin: 0; }
 .number-icon {
   animation: pulse 1.5s infinite;
 }
+
+#endgame-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  z-index: 1000;
+}
+#endgame-overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+#endgame-overlay button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background: #e63946;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.letterboard {
+  display: flex;          /* horizontale rij */
+  gap: 6px;               /* ruimte tussen letters */
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  pointer-events: none;   /* klikken gaat door */
+}
+
+#chest-overlay {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px gold;
+  z-index: 1000;
+  font-family: sans-serif;
+}
+
+#chest-overlay h2 {
+  margin-bottom: 10px;
+}
+
+#chest-overlay #final-code {
+  font-weight: bold;
+  font-size: 20px;
+  color: #d49f0b;
+  margin: 10px 0;
+}
+
+#chest-overlay button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Optioneel: animatie */
+@keyframes chest-shake {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) rotate(5deg); }
+  50% { transform: translate(-50%, -50%) rotate(-5deg); }
+  75% { transform: translate(-50%, -50%) rotate(5deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+#chest-overlay.show {
+  animation: chest-shake 1s ease-in-out;
+}
