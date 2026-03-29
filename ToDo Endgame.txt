@@ -1,7 +1,3 @@
-37 discountcode
-BERGENSCHOORLEGMONDSCHATKAART2025XYZ
-
-
 To-Do Lijst: Eindgame “Schatkist openen met letters”
 Stap 1: Voeg een letter toe aan elke hotspot
 
