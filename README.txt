@@ -1,3 +1,5 @@
+LIVE DEMO : https://rdgruijter.github.io/interactiveMap/ 
+
 🗺️ De Schatkaart van Bergen
 
 Een interactieve schatkaart gemaakt met Leaflet.js
